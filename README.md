@@ -1,8 +1,7 @@
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||            欢迎使用el6_first_setup_shell脚本            ||
-||              By:MrNerubian Time：2019-04-19            ||
-||               Email:mrjiangyj@outlook.com              ||
-||功能说明：提供交互式修改selinux,iptables,network,hostname ||
+
+|| 欢迎使用el6_first_setup_shell脚本|| 作者：MrNerubian时间：2019年4月19日】
+|| 电子邮件：mrjiangyj@outlook.com】
+||功能说明：提供交互式修改selinux，iptables，网络，主机名
 ||                    和repoyum源功能                      ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 # el6_first_setup
