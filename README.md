@@ -1,9 +1,7 @@
-
-|| 欢迎使用el6_first_setup_shell脚本|| 作者：MrNerubian时间：2019年4月19日】
-|| 电子邮件：mrjiangyj@outlook.com】
-||功能说明：提供交互式修改selinux，iptables，网络，主机名
-||                    和repoyum源功能                      ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| 欢迎使用el6_first_setup_shell脚本
+|| 作者：MrNerubian时间：2019年4月19日
+|| 电子邮件：mrjiangyj@outlook.com
+||功能说明：提供交互式修改selinux，iptables，网络，主机名和repoyum源功能
 # el6_first_setup
 针对centos6.9系统，交互式进行第一次系统配置，并备份原始配置
 Interactively perform the first system configuration and back up the original configuration for the centos6.9 system
