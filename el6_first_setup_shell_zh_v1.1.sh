@@ -1,20 +1,33 @@
 #!/bin/bash
 
+#启动公告区
+
+echo ""
 echo '||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||'
 echo '||            欢迎使用el6_first_setup_shell脚本             ||'
-echo '||              By:MrNerubian Time：2019-04-19              ||'
+echo '||                  当前版本：v1.1正式版                    ||'
+echo '||              By:MrNerubian Time：2019-04-21              ||'
 echo '||               Email:mrjiangyj@outlook.com                ||'
 echo '||功能说明：提供交互式修改selinux,iptables,network,hostname ||'
 echo '||                    和repoyum源功能                       ||'
 echo '||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||'
+echo ""
+
 #By:奈幽写于2019-04-19
 #By:MrNerubian Time：2019-04-19
 #############################################################
 
+#通用变量定义区
+
+backdir=~/back_first/$(date "+%F_%T")
+
+#函数区
+
 #SELINUX 函数区
+
 se_back(){
-mkdir -p ~/back_first/selinux
-cp -f /etc/selinux/config ~/back_first/selinux &>/dev/null
+mkdir -p $backdir/selinux
+cp -f /etc/selinux/config $backdir/selinux &>/dev/null
 }
 se_status(){		#状态检测
 	sest=$(cat /etc/selinux/config |grep ^SELINUX=|cut -d= -f2)
@@ -54,8 +67,8 @@ yumst1(){			#yum状态检测
 }
 rm_centyum(){		#清空yum及备份配置前yum
 echo "开始备份现有所有yum源文件"
-mkdir -p ~/back_first/yum
-cp -f /etc/yum.repos.d/* ~/back_first/yum &>/dev/null
+mkdir -p $backdir/yum
+cp -f /etc/yum.repos.d/* $backdir/yum &>/dev/null
 echo "开始删除现有所有yum源文件"
 rm -f /etc/yum.repos.d/*
 echo "清理yum源缓存"
@@ -133,9 +146,9 @@ echo "操作执行完毕"
 
 #network 函数区
 eth_back(){
-mkdir -p ~/back_first/eth
-cp -f /etc/sysconfig/network-scripts/ifcfg-eth0 &>/dev/null
-cp -f /etc/sysconfig/network-scripts/ifcfg-eth1 &>/dev/null
+mkdir -p $backdir/eth
+cp -f /etc/sysconfig/network-scripts/ifcfg-eth0 $backdir/eth &>/dev/null
+cp -f /etc/sysconfig/network-scripts/ifcfg-eth1 $backdir/eth &>/dev/null
 }
 eth0(){				#$eth0配置
 read -p "输入网卡"$eth0"新的ip地址" ip1
@@ -221,8 +234,8 @@ iptab_on(){			#开启自启动
 
 #hostname函数区
 hostname_back(){
-mkdir -p ~/back_first/hostname
-cp -f /etc/sysconfig/network ~/back_first/hostname &>/dev/null
+mkdir -p $backdir/hostname
+cp -f /etc/sysconfig/network $backdir/hostname &>/dev/null
 }
 hostna1(){			#当前主机名检测
 	echo 当前主机名称为：
@@ -238,8 +251,8 @@ hostna2(){			#更改主机名
 
 #hosts 函数区
 hosts_back(){
-mkdir -p ~/back_first/hosts
-cp -f /etc/hosts ~/back_first/hosts &>/dev/null
+mkdir -p $backdir/hosts
+cp -f /etc/hosts $backdir/hosts &>/dev/null
 }
 hosts(){
 echo "开始绑定主机名与ip"
@@ -463,9 +476,64 @@ sleep 2s
 done
 }
 
+module_shutdown(){
+while true
+do
+echo "开始执行重启或关闭计算机功能"
+echo "是否重启或关闭计算机（重启-1/关机-2/跳过-3）"
+read -p ":" shdn
+if [ $shdn -eq 1 ];then
+	echo "正在重启系统"
+	shutdown -h now
+	break
+elif [ $shdn -eq 2 ];then
+	echo "正在关闭系统"
+	shutdown -h now
+	break
+elif [ $shdn -eq 3 ];then
+	echo "正在结束此项设置功能"
+	break
+else
+	echo "输入有误，请重试"
+	continue
+fi
+done
+echo "当前模块执行完毕"
+echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sleep 2s
+}
+
+module_backdirctory(){
+while true
+do
+echo "开始执行自定义备份目录功能"
+echo "当前备份路径为$backdir"
+echo "是否自定义备份目录路径（自定义-1/跳过-2）"
+read -p ":" shdn
+if [ $shdn -eq 1 ];then
+	echo "输入自定义备份路径(推荐使用绝对路径)"
+	read -p ":" backdir
+	echo "自定义备份路径为：$backdir"
+	break
+elif [ $shdn -eq 2 ];then
+	echo "正在结束此项设置功能"
+	break
+else
+	echo "输入有误，请重试"
+	continue
+fi
+done
+echo "当前备份路径为$backdir"
+echo "当前模块执行完毕"
+echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+sleep 2s
+}
+
 #执行区域
 while true
 do
+
+module_backdirctory
 
 module_hostname
 
@@ -480,6 +548,8 @@ module_chk_iptables
 module_selinux
 
 module_repo
+
+module_shutdown
 
 echo "程序执行完毕,感谢您的使用，再见！"
 exit 0
