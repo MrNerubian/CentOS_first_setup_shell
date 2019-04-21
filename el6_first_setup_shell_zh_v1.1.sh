@@ -30,13 +30,18 @@ mkdir -p $backdir/selinux
 cp -f /etc/selinux/config $backdir/selinux &>/dev/null
 }
 se_status(){		#状态检测
-	sest=$(cat /etc/selinux/config |grep ^SELINUX=|cut -d= -f2)
+	#sest=$(cat /etc/selinux/config |grep ^SELINUX=|cut -d= -f2)
+	sest=$(awk -F"=" '$0~"^SELINUX="{print $2}' /etc/selinux/config)
 	if [ $sest = enforcing ];then
 		echo 当前状态为：【强制模式】
-	elif [ $sest = permissive ];then
+	elif [ $sest = permissive ];then 
 		echo 当前状态为：【警告模式】
 	elif [ $sest = disabled ];then
 		echo 当前状态为：【关闭模式】
+	else
+		echo 当前状态设置错误，配置关键词为：$sest
+		echo 正确关键词为：enforcing、permissive、disabled
+		echo 务必通过本模块设置功能修正此错误，防止出现未知错误
 	fi 
 }
 se_enforcing(){		#启动selinux强制模式
