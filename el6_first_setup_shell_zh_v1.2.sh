@@ -107,6 +107,8 @@ break
 done
 }
 yum_aliyun(){		#阿里源
+ping -c 3 119.29.29.29  &> /dev/null
+if [ $? -eq 0 ];then
 cat > /etc/yum.repos.d/aliyun.repo <<EOF
 [aliyun]
 name=aliyun network yum
@@ -115,19 +117,19 @@ enabled=1
 gpgcheck=1
 gpgkey=http://mirrors.aliyun.com/centos/6/os/x86_64/RPM-GPG-KEY-CentOS-6
 EOF
-
-echo "正在刷新yum源，校验时间较长请稍等"
-ping -c 3 www.baidu.com  &> /dev/null
-if [ $? -eq 0 ];then
-	echo "正在刷新yum源，请稍等"
+	echo "正在刷新yum源，校验时间较长请稍等"
 	yum clean all &>/dev/null
 	yum makecache &>/dev/null
+	echo "操作执行完毕"
 else
 	echo "网络故障，请检查网络连接"
+	echo "操作未执行"
 fi
-echo "操作执行完毕"
+
 }
 yum_163(){			#网易源
+ping -c 3 119.29.29.29  &> /dev/null
+if [ $? -eq 0 ];then
 cat > /etc/yum.repos.d/163.repo <<EOF
 [163]
 name=163 network yum
@@ -136,17 +138,14 @@ enabled=1
 gpgcheck=1
 gpgkey=http://mirrors.163.com/centos/6/os/x86_64/RPM-GPG-KEY-CentOS-6
 EOF
-
-echo "正在刷新yum源，校验时间较长请稍等"
-ping -c 3 www.baidu.com  &> /dev/null
-if [ $? -eq 0 ];then
-	echo "正在刷新yum源，请稍等"
+	echo "正在刷新yum源，校验时间较长请稍等"
 	yum clean all &>/dev/null
 	yum makecache &>/dev/null
+	echo "操作执行完毕"
 else
 	echo "网络故障，请检查网络连接"
+	echo "操作未执行"
 fi
-echo "操作执行完毕"
 }
 
 #network 函数区
@@ -320,7 +319,7 @@ echo "开始执行selinux设置功能"
 	se_back
 while true
 do
-	echo "输入操作选项序号'\n'（强制模式-1/警告模式-2/关闭模式-3/结束程序-4）"
+	echo "输入操作选项序号（强制模式-1/警告模式-2/关闭模式-3/结束程序-4）"
 	read -p ":" se1
 	if [ $se1 -eq 1 ];then			#强制模式
 		se_enforcing
@@ -489,7 +488,7 @@ echo "是否重启或关闭计算机（重启-1/关机-2/跳过-3）"
 read -p ":" shdn
 if [ $shdn -eq 1 ];then
 	echo "正在重启系统"
-	shutdown -h now
+	shutdown -r now
 	break
 elif [ $shdn -eq 2 ];then
 	echo "正在关闭系统"
