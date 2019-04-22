@@ -1,16 +1,46 @@
 ## 发布日志 / Release log
 
-### v1.2版本
+### el7_first_setup_zh_v1.0
+
+发布时间：2019年4月22日  /Published: April 22, 2019
+
+#### 1.发布说明（Release notes）
+
+1. 由于课程开始学习python，环境切换到centos7.5了，所以将el6版本命令进行了替换和部分重构，形成了el7_first_setup_zh_v1.0版本
+
+   Since the course started to learn python, the environment switched to centos7.5, so the el6 version of the command was replaced and partially refactored to form el7_first_setup_zh_v1.0 version.
+
+2. el7版本将会成为未来一段时间的主力更新版本，在完善基本功能完善之后，可能会带来其他功能版本，也有可能会是python版本，敬请期待吧
+
+   The el7 version will be the main update version for some time in the future. After perfecting the basic functions, it may bring other functional versions, or it may be the python version. Stay tuned.
+
+3. el6版本会随el7基本上保持同步更新
+
+   El6 version will be updated synchronously with el7
+
+4. 如果各位前辈有好的建议或意见，欢迎随时提交问题，或者Email我
+
+   If you have good advice or comments from your predecessors, please feel free to submit your questions or email me.
+
+### el6_first_setup_zh_v1.2
 
 发布时间：2019年4月22日  /Published: April 22, 2019
 
 #### 1.发布说明（Release notes）
 
 1. 修复了重启模块
+
+   Fixed restart module
+
 2. 修正了一个echo错误
+
+   Fixed an echo error
+
 3. 优化了yum配置模块网络检测机制
 
-### v1.1版本
+   Optimized the network detection mechanism of yum configuration module
+
+### el6_first_setup_zh_v1.1
 
 发布时间：2019年4月21日  /Published: April 21, 2019
 
