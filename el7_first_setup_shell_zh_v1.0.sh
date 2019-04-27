@@ -98,7 +98,11 @@ if [ ! -x /etc/rc.d/rc.local ];then
 	chmod u+x /etc/rc.d/rc.local &>/dev/null			#/etc/rc.d/rc.local没权限加权
 fi
 cat > /etc/yum.repos.d/nest_local.repo <<EOF
-
+[nestlocal]
+name=nest_local
+baseurl=file:///yum
+gpgcheck=0
+enabled=1
 EOF
 
 yum clean all &>/dev/null
