@@ -159,7 +159,8 @@ mkdir -p $backdir/eth
 cp -f /etc/sysconfig/network-scripts/ifcfg-ens* $backdir/eth &>/dev/null
 }
 ens33set(){				#$ens33配置
-read -p "输入网卡"$ens01"新的ip地址" ip1
+echo "输入网卡"$ens01"新的ip地址"
+read -p "：" ip1
 ip11=$(echo $ip1|sed -r 's/(.*)\.(.*)\.(.*)\.(.*)/\1.\2.\3./')
 cat > /etc/sysconfig/network-scripts/ifcfg-ens33 <<EOF
 DEVICE=ens33
@@ -169,12 +170,14 @@ BOOTPROTO=static
 IPADDR=${ip1}
 NETMASK=255.255.255.0
 GATEWAY=${ip11}2
+DNS1=119.29.29.29
 EOF
 
 echo "当前【"$ens01"】IP为【"$(grep IPADDR /etc/sysconfig/network-scripts/ifcfg-"$ens01"|cut -d= -f2)"】"
 }
 ens34set(){				#$ens34配置
-read -p "输入网卡"$ens02"新的ip地址" ip2
+echo "输入网卡"$ens02"新的ip地址"
+read -p "：" ip2
 ip22=$(echo $ip2|sed -r 's/(.*)\.(.*)\.(.*)\.(.*)/\1.\2.\3./')
 cat > /etc/sysconfig/network-scripts/ifcfg-ens34 <<EOF
 DEVICE=eth0
@@ -184,6 +187,7 @@ BOOTPROTO=static
 IPADDR=${ip2}
 NETMASK=255.255.255.0
 GATEWAY=${ip22}2
+DNS1=119.29.29.29
 EOF
 
 echo "当前【"$ens02"】IP为【"$(grep IPADDR /etc/sysconfig/network-scripts/ifcfg-"$ens02"|cut -d= -f2)"】"

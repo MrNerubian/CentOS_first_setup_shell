@@ -1,7 +1,8 @@
 #!/bin/bash
 
 eth0(){
-read -p "输入网卡"$eth0"新的ip地址" ip1
+echo "输入网卡"$eth0"新的ip地址"
+read -p ":" ip1
 ip11=$(echo $ip1|sed -r 's/(.*)\.(.*)\.(.*)\.(.*)/\1.\2.\3./')
 cat > /etc/sysconfig/network-scripts/ifcfg-eth0 <<EOF
 DEVICE=eth0
@@ -11,12 +12,14 @@ BOOTPROTO=static
 IPADDR=${ip1}
 NETMASK=255.255.255.0
 GATEWAY=${ip11}2
+DNS1=119.29.29.29
 EOF
 
 echo "当前【"$eth0"】IP为【"$(grep IPADDR /etc/sysconfig/network-scripts/ifcfg-"$eth0"|cut -d= -f2)"】"
 }
 eth1(){
-read -p "输入网卡"$eth1"新的ip地址" ip2
+echo "输入网卡"$eth1"新的ip地址"
+read -p ":" ip2
 ip22=$(echo $ip2|sed -r 's/(.*)\.(.*)\.(.*)\.(.*)/\1.\2.\3./')
 cat > /etc/sysconfig/network-scripts/ifcfg-eth1 <<EOF
 DEVICE=eth0
@@ -26,6 +29,7 @@ BOOTPROTO=static
 IPADDR=${ip2}
 NETMASK=255.255.255.0
 GATEWAY=${ip22}2
+DNS1=119.29.29.29
 EOF
 
 echo "当前【"$eth1"】IP为【"$(grep IPADDR /etc/sysconfig/network-scripts/ifcfg-"$eth1"|cut -d= -f2)"】"
