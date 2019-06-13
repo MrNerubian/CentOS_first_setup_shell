@@ -118,10 +118,10 @@ if [ $? -eq 0 ];then
 cat > /etc/yum.repos.d/aliyun.repo <<EOF
 [aliyun]
 name=aliyun network yum
-baseurl=http://mirrors.aliyun.com/centos/6/os/x86_64/
+baseurl=http://mirrors.aliyun.com/centos/7/os/x86_64/
 enabled=1
 gpgcheck=1
-gpgkey=http://mirrors.aliyun.com/centos/6/os/x86_64/RPM-GPG-KEY-CentOS-6
+gpgkey=http://mirrors.aliyun.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-6
 EOF
 	echo "正在刷新yum源，校验时间较长请稍等"
 	yum clean all &>/dev/null
@@ -138,10 +138,10 @@ if [ $? -eq 0 ];then
 cat > /etc/yum.repos.d/163.repo <<EOF
 [163]
 name=163 network yum
-baseurl=http://mirrors.163.com/centos/6/os/x86_64/
+baseurl=http://mirrors.163.com/centos/7/os/x86_64/
 enabled=1
 gpgcheck=1
-gpgkey=http://mirrors.163.com/centos/6/os/x86_64/RPM-GPG-KEY-CentOS-6
+gpgkey=http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-6
 EOF
 	echo "正在刷新yum源，校验时间较长请稍等"
 	yum clean all &>/dev/null
