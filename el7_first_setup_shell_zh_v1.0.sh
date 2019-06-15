@@ -17,6 +17,12 @@ echo ""
 #By:MrNerubian Time：2019-04-22
 #####################################################################
 
+#root用户检测
+if [ $(id -u) != "0" ]; then
+    echo "错误提示：当前用户不是管理员，无法完成操作！"
+    exit 1
+fi
+
 #通用变量定义区
 
 backdir=~/back_first/$(date "+%F_%T")
@@ -65,11 +71,11 @@ se_disabled(){		#启动selinux关闭模式
 #yum 函数区
 yumst1(){			#yum状态检测
 	echo "开始检测当前状态"
-	st41=$(ls /etc/yum.repos.d/|grep CentOS-|wc -l)
-	if [ $st41 -eq 5 ];then
-		echo "当前yum源处于【初始状态】"
-	else
+	st111=$(ls /etc/yum.repos.d/|grep CentOS-|wc -l)
+	if [ $st111 -ne 0 ];then
 		echo "当前yum源处于【已更改状态】"
+	else
+		echo "当前yum源处于【初始状态】"
 	fi
 }
 rm_centyum(){		#清空yum及备份配置前yum
@@ -105,8 +111,12 @@ gpgcheck=0
 enabled=1
 EOF
 
-yum clean all &>/dev/null
+echo "正在刷新yum源，校验时间较长请稍等"
+rm -rf /var/cache/yum
 yum makecache &>/dev/null
+echo "操作执行完毕"
+echo "安装基本工具包:vim man rdate"
+yum -y install net-tools vim man rdate &>/dev/null 
 echo "操作执行完毕"
 break
 done
@@ -121,10 +131,10 @@ name=aliyun network yum
 baseurl=http://mirrors.aliyun.com/centos/7/os/x86_64/
 enabled=1
 gpgcheck=1
-gpgkey=http://mirrors.aliyun.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-6
+gpgkey=http://mirrors.aliyun.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
 EOF
 	echo "正在刷新yum源，校验时间较长请稍等"
-	yum clean all &>/dev/null
+	rm -rf /var/cache/yum
 	yum makecache &>/dev/null
 	echo "操作执行完毕"
 else
@@ -141,10 +151,10 @@ name=163 network yum
 baseurl=http://mirrors.163.com/centos/7/os/x86_64/
 enabled=1
 gpgcheck=1
-gpgkey=http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-6
+gpgkey=http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
 EOF
 	echo "正在刷新yum源，校验时间较长请稍等"
-	yum clean all &>/dev/null
+	rm -rf /var/cache/yum
 	yum makecache &>/dev/null
 	echo "操作执行完毕"
 else
@@ -293,6 +303,7 @@ sleep 2s
 #功能模块区-function module
 module_repo(){					#yum源设置模块
 echo "开始执行YUM源设置功能"
+echo "建议优先清理自带yum源，防止刷新缓存时间过长"
 	yumst1								#状态检测
 while true
 do
