@@ -85,7 +85,8 @@ cp -f /etc/yum.repos.d/* $backdir/yum &>/dev/null
 echo "开始删除现有所有yum源文件"
 rm -f /etc/yum.repos.d/*
 echo "清理yum源缓存"
-yum clean all &>/dev/null
+rm -rf /var/cache/yum
+#yum clean all &>/dev/null
 echo "操作执行完毕"
 }
 yum_local(){		#本地yum源
@@ -112,7 +113,7 @@ enabled=1
 EOF
 
 echo "正在刷新yum源，校验时间较长请稍等"
-rm -rf /var/cache/yum
+#rm -rf /var/cache/yum
 yum makecache &>/dev/null
 echo "操作执行完毕"
 echo "安装基本工具包:vim man rdate"
@@ -294,7 +295,7 @@ echo $ip1 $(hostname) >> /etc/hosts
 echo $ip2 $(hostname) >> /etc/hosts
 echo "程序执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
  
@@ -341,7 +342,7 @@ do
 done
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_selinux(){				#selinux设置模块
@@ -372,7 +373,7 @@ done
 se_status							#状态检测
 echo "当前模块执行完毕"
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_network(){				#网络设置模块
@@ -397,7 +398,7 @@ do
 done
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_netrestart(){			#网络重启模块
@@ -406,7 +407,7 @@ echo -e  "\033[43;1;31m警告：重启网络会导致服务断开，可能会导
 ens_rest
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_firewd(){				#防火墙开关模块
@@ -437,7 +438,7 @@ done
 firewd_status                        #防火墙状态检测
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_chk_firewd(){			#防火墙开机启动项设置模块
@@ -464,7 +465,7 @@ done
 firewd_status2						#防火墙开机启动项状态检测
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_hostname(){				#主机名设置模块
@@ -488,7 +489,7 @@ done
 hostna1								#状态检测
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_hosts(){					#主机名绑定模块
@@ -510,7 +511,7 @@ else
 fi
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 done
 }
 
@@ -538,7 +539,7 @@ fi
 done
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 module_backdirctory(){			#备份目录控制模块
@@ -564,7 +565,7 @@ done
 echo "当前备份路径为$backdir"
 echo "当前模块执行完毕"
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-sleep 2s
+
 }
 
 #执行区域
